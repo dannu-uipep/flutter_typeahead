@@ -46,6 +46,7 @@ class NavigationExample extends StatelessWidget {
             height: 10.0,
           ),
           TypeAheadField(
+            suggestionType: SuggestionType.wrap,
             textFieldConfiguration: TextFieldConfiguration(
               autofocus: true,
               style: DefaultTextStyle.of(context)
@@ -59,10 +60,8 @@ class NavigationExample extends StatelessWidget {
               return await BackendService.getSuggestions(pattern);
             },
             itemBuilder: (context, Map<String, String> suggestion) {
-              return ListTile(
-                leading: Icon(Icons.shopping_cart),
-                title: Text(suggestion['name']!),
-                subtitle: Text('\$${suggestion['price']}'),
+              return Container(
+                child: Text(suggestion['name']!),
               );
             },
             onSuggestionSelected: (Map<String, String> suggestion) {
@@ -157,6 +156,7 @@ class ScrollExample extends StatelessWidget {
       ),
       SizedBox(height: 200),
       TypeAheadField<String>(
+        suggestionType: SuggestionType.list,
         getImmediateSuggestions: true,
         textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
@@ -170,8 +170,10 @@ class ScrollExample extends StatelessWidget {
               .toList();
         },
         itemBuilder: (context, String suggestion) {
-          return ListTile(
-            title: Text(suggestion),
+          return Container(
+            padding: EdgeInsets.all(10),
+            color: Colors.green,
+            child: Text(suggestion),
           );
         },
         onSuggestionSelected: (String suggestion) {
